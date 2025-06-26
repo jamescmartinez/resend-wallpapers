@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "Downloading Resend wallpapers..."
+
+curl -s https://resend.com/wallpapers |             # Fetch the webpage content
+  grep -oE 'href="/static/wallpapers/[^"]*\.jpg"' | # Extract JPG href attributes
+  sed 's/href="//; s/"//' |                         # Remove href=" and trailing "
+  sort -u |                                         # Remove duplicates
+  while read -r path; do                            # Download each wallpaper
+    url="https://resend.com$path"                   # Convert relative path to full URL
+    filename=$(basename "$path")
+    echo "Downloading: $filename"
+    curl -L -o "$filename" "$url"
+  done
+
+echo "Done!"
