@@ -10,7 +10,7 @@ curl -s https://resend.com/wallpapers |             # Fetch the webpage content
     url="https://resend.com$path"                   # Convert relative path to full URL
     filename=$(basename "$path")
     echo "Downloading: $filename"
-    curl -L -o "$filename" "$url"
+    curl -L -o "wallpapers/$filename" "$url"
   done
 
 echo "Done!"
